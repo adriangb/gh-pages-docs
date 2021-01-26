@@ -34,19 +34,26 @@ jobs:
         run: |
           sphinx-build -b html -j 2 docs/ docs_deploy/${{ github.ref }}
       
-      - name: Update doc versions
-        run: python docs/update_versions.py
-
-      - name: Deploy docs
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+      - name: Save docs artifact
+        uses: actions/upload-artifact@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: docs-deploy
-          FOLDER: docs_deploy
-          TARGET_FOLDER: .
-          PRESERVE: true
+          name: docs-${{ github.ref }}
+          path: docs_deploy/*
+          retention-days: 1  # should only be needed for a few minutes
+      
+      # - name: Update doc versions
+      #   run: python docs/update_versions.py
 
-      - name: Print docs link
-        run: |
-          echo "Docs available at https://www.adriangb.com/gh-pages-docs/${{ github.ref }}/"
-          # depends on if you have a custom domain or not
+      # - name: Deploy docs
+      #   uses: JamesIves/github-pages-deploy-action@3.7.1
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     BRANCH: docs-deploy
+      #     FOLDER: docs_deploy
+      #     TARGET_FOLDER: .
+      #     PRESERVE: true
+
+      # - name: Print docs link
+      #   run: |
+      #     echo "Docs available at https://www.adriangb.com/gh-pages-docs/${{ github.ref }}/"
+      #     # depends on if you have a custom domain or not
