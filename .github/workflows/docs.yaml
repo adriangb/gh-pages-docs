@@ -1,10 +1,13 @@
 name: Docs
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - develop
   pull_request:
   release:
-    types: [published]
+    types:
+      - published
 
 jobs:
   notebooks:

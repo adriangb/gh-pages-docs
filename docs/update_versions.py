@@ -10,7 +10,7 @@ To a file called versions.txt
 import os
 
 base = "refs"
-branch_names = {"main": "latest"}
+branch_names = {"main": "latest", "develop": "develop"}
 stable = None
 
 dirs = []
