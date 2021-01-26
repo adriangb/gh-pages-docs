@@ -16,8 +16,8 @@ jobs:
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v2
         with:
-          run_id: ${{ github.event.workflow_run.run_id }}
           workflow: ${{ github.event.workflow_run.workflow }}
+          run_id: ${{ github.event.workflow_run.run_id }}
           name: docs
           path: .
 
