@@ -1,4 +1,4 @@
-name: Docs
+name: Build Docs
 on:
   push:
     branches:
@@ -24,29 +24,31 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
-      
-      - uses: actions/checkout@v2
-        with:
-          ref: refs/heads/docs-deploy
-          path: docs_deploy
 
       - name: Build the docs
         run: |
-          sphinx-build -b html -j 2 docs/ docs_deploy/${{ github.ref }}
+          sphinx-build -b html -j 2 docs/ docs_build/${{ github.ref }}
       
-      - name: Update doc versions
-        run: python docs/update_versions.py
-
-      - name: Deploy docs
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+      - name: Save docs artifact
+        uses: actions/upload-artifact@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: docs-deploy
-          FOLDER: docs_deploy
-          TARGET_FOLDER: .
-          PRESERVE: true
+          name: docs
+          path: docs_build/*
+          retention-days: 1  # should only be needed for a few minutes
+      
+      # - name: Update doc versions
+      #   run: python docs/update_versions.py
 
-      - name: Print docs link
-        run: |
-          echo "Docs available at https://www.adriangb.com/gh-pages-docs/${{ github.ref }}/"
-          # depends on if you have a custom domain or not
+      # - name: Deploy docs
+      #   uses: JamesIves/github-pages-deploy-action@3.7.1
+      #   with:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     BRANCH: docs-deploy
+      #     FOLDER: docs_deploy
+      #     TARGET_FOLDER: .
+      #     PRESERVE: true
+
+      # - name: Print docs link
+      #   run: |
+      #     echo "Docs available at https://www.adriangb.com/gh-pages-docs/${{ github.ref }}/"
+      #     # depends on if you have a custom domain or not
