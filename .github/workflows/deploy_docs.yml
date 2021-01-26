@@ -14,7 +14,7 @@ jobs:
     steps:
 
       - run: |
-          echo workflow: ${{ github.event.workflow_run }}
+          echo workflow: ${{ github.event['workflow_run'] }}
           echo run_id: ${{ github.event.workflow_run }}
 
       - name: Download artifact
