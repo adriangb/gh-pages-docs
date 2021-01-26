@@ -24,14 +24,14 @@ jobs:
 
       - name: Build the docs
         run: |
-          sphinx-versioning build -r ${{ github.ref }} docs docs/_build/html
+          sphinx-build -b html -j 2 docs/ docs_build
 
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: docs-deploy
-          FOLDER: docs/_build
+          FOLDER: docs_build
           CLEAN: true
           TARGET_FOLDER: ${{ github.ref }}
           SINGLE_COMMIT: true
@@ -40,3 +40,4 @@ jobs:
       - name: Print docs link
         run: |
           echo "Docs available at https://www.adriangb.com/gh-pages-docs/${{ github.ref }}/"
+          # depends on if you have a custom domain or not
