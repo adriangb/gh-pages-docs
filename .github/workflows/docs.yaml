@@ -1,0 +1,42 @@
+name: Docs
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  notebooks:
+    name: "Build the notebooks for the docs"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+  
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Build the docs
+        run: |
+          sphinx-versioning build -r ${{ github.ref }} docs docs/_build/html
+
+      - name: Deploy docs
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: docs-deploy
+          FOLDER: docs/_build
+          CLEAN: true
+          TARGET_FOLDER: ${{ github.ref }}
+          SINGLE_COMMIT: true
+          PRESERVE: true
+
+      - name: Print docs link
+        run: |
+          echo "Docs available at https://www.adriangb.com/gh-pages-docs/${{ github.ref }}/"
