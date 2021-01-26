@@ -21,20 +21,26 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -r requirements.txt
+      
+      - uses: actions/checkout@v2
+        with:
+          ref: refs/heads/docs-deploy
+          path: docs_deploy
 
       - name: Build the docs
         run: |
-          sphinx-build -b html -j 2 docs/ docs_build
+          sphinx-build -b html -j 2 docs/ docs_deploy/${{ github.ref }}
+      
+      - name: Update doc versions
+        run: python docs/update_versions.py
 
       - name: Deploy docs
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: docs-deploy
-          FOLDER: docs_build
-          CLEAN: true
-          TARGET_FOLDER: ${{ github.ref }}
-          SINGLE_COMMIT: true
+          FOLDER: docs_deploy
+          TARGET_FOLDER: .
           PRESERVE: true
 
       - name: Print docs link
