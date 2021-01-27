@@ -30,7 +30,7 @@ jobs:
           name: docs
 
       - name: Update versions
-        run: python .github/workflows/update_versions.py
+        run: python update_versions.py
       
       - name: Deploy docs
         run: |
