@@ -34,6 +34,7 @@ jobs:
       
       - name: Deploy docs
         run: |
+          echo ${{ toJSON(github.event.workflow_run) }}
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add -A
