@@ -38,7 +38,7 @@ jobs:
           git config user.email github-actions@github.com
           git add refs
           changes=$(git diff-index --exit-code --quiet HEAD;echo $?)
-          if [$changes -eq 1]; then
+          if [$changes -eq "1"]; then
             echo "Deploying changes"
             git status
             git commit -m "Deploy docs from ${{ github.event.workflow_run.head_branch }}"
