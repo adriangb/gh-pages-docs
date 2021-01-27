@@ -37,8 +37,7 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add refs
-          git diff-index --exit-code --quiet HEAD
-          changes=$?
+          changes=$(git diff-index --exit-code --quiet HEAD;echo $?)
           if [$changes -eq 1]; then
             echo "Deploying changes"
             git status
