@@ -28,7 +28,7 @@ jobs:
       - name: Build the docs
         run: |
           sphinx-build -b html -j 2 docs/ docs/_build/${{ github.ref }}
-          echo "${{ github.ref }}" >> ref.txt
+          echo "${{ github.ref }}" >> docs/_build/ref.txt
 
       - name: Save docs artifact
         uses: actions/upload-artifact@v2
