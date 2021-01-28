@@ -65,7 +65,7 @@ jobs:
           body-includes: Docs preview for commit
 
       - name: Test
-        if: ${{ contains(github.event.workflow_run.event, 'pull_request') }} && ${{ steps.fc.outputs.comment-id == 0 }}
+        if: ${{ contains(github.event.workflow_run.event, 'pull_request') && steps.fc.outputs.comment-id == 0}}
         run: echo "RAN!"
 
       - name: Create comment
