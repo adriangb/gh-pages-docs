@@ -54,7 +54,7 @@ jobs:
           fi
 
       - name: Find Comment
-        if: ${{ contains(github.event.workflow_run.event, "pull_request") }}
+        if: ${{ contains(github.event.workflow_run.event, 'pull_request') }}
         uses: peter-evans/find-comment@v1
         id: fc
         with:
@@ -63,7 +63,7 @@ jobs:
           body-includes: Docs preview for commit
 
       - name: Create comment
-        if: ${{ contains(github.event.workflow_run.event, "pull_request") }} && ${{ steps.fc.outputs.comment-id == 0 }}
+        if: ${{ contains(github.event.workflow_run.event, 'pull_request') }} && ${{ steps.fc.outputs.comment-id == 0 }}
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.workflow_run.event.pull_requests[0].number }}
