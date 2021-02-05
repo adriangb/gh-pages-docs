@@ -1,4 +1,4 @@
 Test
 ====
 
-Sample documentation for test-branch
+Sample Documentation for test-branch
