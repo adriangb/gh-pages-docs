@@ -1,0 +1,5 @@
+# nothing here is really required, just for my convenience in testing
+docs/_build
+venv
+.vscode
+.DS_Store
