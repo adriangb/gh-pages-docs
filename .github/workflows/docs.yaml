@@ -1,14 +1,17 @@
-name: Docs
+name: Build Docs
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - develop
   pull_request:
   release:
-    types: [published]
+    types:
+      - published
 
 jobs:
-  notebooks:
-    name: "Build the notebooks for the docs"
+  build:
+    name: Build Docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,27 +19,18 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: '3.x'
   
-      - name: Install Dependencies
-        run: |
-          pip install -r requirements.txt
-
       - name: Build the docs
         run: |
-          sphinx-versioning build -r ${{ github.ref }} docs docs/_build/html
+          pip install sphinx
+          sphinx-build -b html -j 2 docs/ docs/_build/${{ github.ref }}
+          find ./docs/_build -type d -name '.[^.]*' -prune -exec rm -rf {} +
+          echo "${{ github.ref }}" >> docs/_build/ref.txt
 
-      - name: Deploy docs
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+      - name: Save docs artifact
+        uses: actions/upload-artifact@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: docs-deploy
-          FOLDER: docs/_build
-          CLEAN: true
-          TARGET_FOLDER: ${{ github.ref }}
-          SINGLE_COMMIT: true
-          PRESERVE: true
-
-      - name: Print docs link
-        run: |
-          echo "Docs available at https://www.adriangb.com/gh-pages-docs/${{ github.ref }}/"
+          name: docs
+          path: docs/_build/*
+          retention-days: 1  # should only be needed for a few minutes
