@@ -1,0 +1,38 @@
+name: Build Docs
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    name: Build Docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Build
+        run: |
+          pip install sphinx
+          sphinx-build -b html -j 2 docs/ docs/_build/${{ github.ref }}
+          find ./docs/_build -type d -name '.[^.]*' -prune -exec rm -rf {} +
+      
+      - name: Save ref
+        run: echo "${{ github.ref }}" >> docs/_build/ref.txt
+
+      - name: Save docs artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: docs
+          path: docs/_build/*
+          retention-days: 1  # should only be needed for a few minutes
