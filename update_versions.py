@@ -31,7 +31,7 @@ if os.path.exists(os.path.join(base, "tags")):
     tags = []
     for tag in os.listdir(os.path.join(base, "tags")):
         tags.append(tag)
-    tags.sort(key=lambda s: map(int, s.strip("v").split('.')))
+    tags.sort(key=lambda s: tuple(map(int, s.strip("v").split('.'))))
     for tag in tags[:-1]:
         versions[tag] = "/".join((base, "tags", tag))
     stable = "/".join((base, "tags", tags[-1]))
