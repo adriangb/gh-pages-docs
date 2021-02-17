@@ -16,7 +16,11 @@ $.getJSON(base_url + "versions.json", function (versions) {
     }
 });
 
-if (((target_version !== null) && !(rest.startsWith("refs")))) {
-    // redirect
-    document.location.assign(base_url.concat(target_version, "/", rest));
-};
+function maybeRedirect() {
+    if (((target_version !== null) && !(rest.startsWith("refs")))) {
+        // redirect
+        window.location.href = base_url.concat(target_version, "/", rest);
+    };
+    return false;
+}
+setTimeout(maybeRedirect, 300);
