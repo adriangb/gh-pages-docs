@@ -23,4 +23,4 @@ function maybeRedirect() {
     };
 }
 
-maybeRedirect();
+document.addEventListener("DOMContentLoaded", maybeRedirect);
