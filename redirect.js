@@ -18,5 +18,5 @@ $.getJSON(base_url + "versions.json", function (versions) {
 
 if (((target_version !== null) && !(rest.startsWith("refs")))) {
     // redirect
-    window.location.replace(base_url.concat(target_version, "/", rest));
+    window.location = base_url.concat(target_version, "/", rest);
 };
