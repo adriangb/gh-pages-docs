@@ -22,4 +22,4 @@ function maybeRedirect() {
         window.location.href = base_url.concat(target_version, "/", rest);
     }
 }
-setTimeout(maybeRedirect, 100);
+
