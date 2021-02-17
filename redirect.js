@@ -5,7 +5,7 @@ var rest = current.replace(base_url, "");
 
 var target_version;
 
-$.getJSON("./versions.json", function (versions) {
+$.getJSON(base_url + "/versions.json", function (versions) {
     if (versions.hasOwnProperty("stable")) {
         target_version = stable;
         return;
