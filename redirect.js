@@ -1,6 +1,6 @@
 var base_url = "https://www.adriangb.com/gh-pages-docs/";
 
-var current = window.location.href;
+var current = "https://www.adriangb.com/gh-pages-docs/test.html";
 var rest = current.replace(base_url, "");
 
 var target_version = null;
@@ -23,4 +23,4 @@ function maybeRedirect() {
     }
 }
 
-window.onload = maybeRedirect;
+window.addEventListener('load', function () { setTimeout(maybeRedirect, 25); }, false);
