@@ -24,4 +24,4 @@ function maybeRedirect() {
     return false;
 }
 
-maybeRedirect();
+window.addEventListener('load', maybeRedirect);
