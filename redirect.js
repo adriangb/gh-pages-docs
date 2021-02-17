@@ -23,4 +23,4 @@ function maybeRedirect() {
     }
 }
 
-$(document).ready(maybeRedirect);
+window.onload = maybeRedirect;
