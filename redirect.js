@@ -5,13 +5,13 @@ var rest = current.replace(base_url, "");
 
 var target_version;
 
-$.getJSON(base_url + "/versions.json", function (versions) {
+$.getJSON(base_url + "versions.json", function (versions) {
     if (versions.hasOwnProperty("stable")) {
-        target_version = stable;
+        target_version = versions.stable;
         return;
     }
     if (versions.hasOwnProperty("latest")) {
-        target_version = stable;
+        target_version = versions.latest;
         return;
     }
 });
