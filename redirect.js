@@ -1,4 +1,4 @@
-var base_url = "file:///Users/adrian.badaracco/Documents/GitHub/gh-pages-docs/";
+var base_url = "https://www.adriangb.com/gh-pages-docs/";
 
 var current = window.location.href;
 var rest = current.replace(base_url, "");
