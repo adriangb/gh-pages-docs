@@ -23,5 +23,4 @@ function maybeRedirect() {
     };
     return false;
 }
-
-window.addEventListener('load', maybeRedirect);
+setTimeout(maybeRedirect, 1000);
