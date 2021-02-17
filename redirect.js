@@ -23,4 +23,4 @@ function maybeRedirect() {
     };
     return false;
 }
-setTimeout(maybeRedirect, 300);
+setTimeout(maybeRedirect, 100);
