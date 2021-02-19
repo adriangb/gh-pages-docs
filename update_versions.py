@@ -54,14 +54,11 @@ for target in permalink:
 # Create an index.html to redirect to the stable version
 # or latest if stable does not exist
 if stable:
-    redirect = stable
+    redirect = "stable/"
+elif "latest" in branch_names.values():
+    redirect= "latest/"
 else:
-    try:
-        b = next(k for k, v in branch_names.items() if v)
-        redirect = "/".join((base, "heads", b))
-    except StopIteration:
-        redirect = None
-if redirect:
-    with open("index.html", "w") as f:
-        data = """<meta http-equiv="refresh" content="0; URL='""" + redirect + """/index.html'" />"""
-        f.write(data)
+    raise ValueError("You must specify a `latest` branch or have at least one tagged version (`stable`).")
+with open("index.html", "w") as f:
+    data = """<meta http-equiv="refresh" content="0; URL='""" + redirect + """'" />"""
+    f.write(data)
