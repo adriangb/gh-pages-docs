@@ -63,6 +63,5 @@ else:
         redirect = None
 if redirect:
     with open("index.html", "w") as f:
-        f.write(
-            """<meta http-equiv="refresh" content="0; URL='""" + redirect + """/index.html'" />"""
-        )
+        data = """<meta http-equiv="refresh" content="0; URL='""" + redirect + """/index.html'" />"""
+        f.write(data)
