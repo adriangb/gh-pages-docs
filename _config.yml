@@ -1,2 +1,2 @@
 exclude: ['_config.yml', '*.py']
-include: ['_*', '404.html', 'versions.json']
+include: ['_*', 'versions.json']
