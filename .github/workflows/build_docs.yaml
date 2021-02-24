@@ -25,7 +25,7 @@ jobs:
         run: |
           pip install sphinx
           sphinx-build -b html -j 2 docs/ docs/_build/${{ github.ref }}
-          find ./docs/_build -type d -name '.[^.]*' -prune -exec rm -rf {} +
+          find ./docs/_build -name '.[^.]*' -prune -exec rm -rf {} +
       
       - name: Save ref
         run: echo "${{ github.ref }}" >> docs/_build/ref.txt
