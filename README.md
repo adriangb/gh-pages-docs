@@ -6,3 +6,4 @@ Using GitHub Actions, this setup achieves:
 - Managing of concurrent pushes to the Pages branch 
 
 See the example docs at https://www.adriangb.com/gh-pages-docs/
+ 
